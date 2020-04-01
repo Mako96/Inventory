@@ -449,7 +449,7 @@ class CI_Migration {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Stores the current schema version
+	 * locations the current schema version
 	 *
 	 * @param	string	$migration	Migration reached
 	 * @return	void

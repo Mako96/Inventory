@@ -156,7 +156,7 @@ class CI_Form_validation {
 	 *
 	 * This function takes an array of field names and validation
 	 * rules as input, any custom error messages, validates the info,
-	 * and stores it
+	 * and locations it
 	 *
 	 * @param	mixed	$field
 	 * @param	string	$label

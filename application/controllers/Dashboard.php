@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class Dashboard extends Admin_Controller 
+class Dashboard extends Admin_Controller
 {
 	public function __construct()
 	{
@@ -9,16 +9,16 @@ class Dashboard extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Dashboard';
-		
+
 		$this->load->model('model_products');
 		$this->load->model('model_orders');
 		$this->load->model('model_users');
-		$this->load->model('model_stores');
+		$this->load->model('model_locations');
 	}
 
 	/* 
 	* It only redirects to the manage category page
-	* It passes the total product, total paid orders, total users, and total stores information
+	* It passes the total product, total paid orders, total users, and total locations information
 	into the frontend.
 	*/
 	public function index()
@@ -26,10 +26,10 @@ class Dashboard extends Admin_Controller
 		$this->data['total_products'] = $this->model_products->countTotalProducts();
 		$this->data['total_paid_orders'] = $this->model_orders->countTotalPaidOrders();
 		$this->data['total_users'] = $this->model_users->countTotalUsers();
-		$this->data['total_stores'] = $this->model_stores->countTotalStores();
-
+		$this->data['total_locations'] = $this->model_locations->countTotallocations();
+		$this->data['requested_orders'] = $this->model_orders->getRequestedOrdersData();
 		$user_id = $this->session->userdata('id');
-		$is_admin = ($user_id == 1) ? true :false;
+		$is_admin = ($user_id == 1) ? true : false;
 
 		$this->data['is_admin'] = $is_admin;
 		$this->render_template('dashboard', $this->data);

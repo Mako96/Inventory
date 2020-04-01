@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Model_auth extends CI_Model
 {
@@ -8,13 +8,13 @@ class Model_auth extends CI_Model
 	}
 
 	/* 
-		This function checks if the email exists in the database
+		This function checks if the username exists in the database
 	*/
-	public function check_email($email) 
+	public function check_username($username)
 	{
-		if($email) {
-			$sql = 'SELECT * FROM users WHERE email = ?';
-			$query = $this->db->query($sql, array($email));
+		if ($username) {
+			$sql = 'SELECT * FROM users WHERE username = ?';
+			$query = $this->db->query($sql, array($username));
 			$result = $query->num_rows();
 			return ($result == 1) ? true : false;
 		}
@@ -23,27 +23,24 @@ class Model_auth extends CI_Model
 	}
 
 	/* 
-		This function checks if the email and password matches with the database
+		This function checks if the username and password matches with the database
 	*/
-	public function login($email, $password) {
-		if($email && $password) {
-			$sql = "SELECT * FROM users WHERE email = ?";
-			$query = $this->db->query($sql, array($email));
+	public function login($username, $password)
+	{
+		if ($username && $password) {
+			$sql = "SELECT * FROM users WHERE username = ?";
+			$query = $this->db->query($sql, array($username));
 
-			if($query->num_rows() == 1) {
+			if ($query->num_rows() == 1) {
 				$result = $query->row_array();
 
 				$hash_password = password_verify($password, $result['password']);
-				if($hash_password === true) {
-					return $result;	
-				}
-				else {
+				if ($hash_password === true) {
+					return $result;
+				} else {
 					return false;
 				}
-
-				
-			}
-			else {
+			} else {
 				return false;
 			}
 		}

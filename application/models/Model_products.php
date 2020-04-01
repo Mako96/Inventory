@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Model_products extends CI_Model
 {
@@ -10,7 +10,7 @@ class Model_products extends CI_Model
 	/* get the brand data */
 	public function getProductData($id = null)
 	{
-		if($id) {
+		if ($id) {
 			$sql = "SELECT * FROM products where id = ?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
@@ -28,9 +28,16 @@ class Model_products extends CI_Model
 		return $query->result_array();
 	}
 
+	public function getProductHistory($id = null)
+	{
+		$sql = "SELECT orders.date_time,orders.order_type, products.name as product_name, orders.order_no, orders_item.qty, users.firstname FROM orders_item inner join orders on orders_item.order_id = orders.id inner join products on orders_item.product_id = products.id inner join users on orders.user_id = users.id where products.id = ? ORDER BY orders.id DESC";
+		$query = $this->db->query($sql, array($id));
+		return $query->result_array();
+	}
+
 	public function create($data)
 	{
-		if($data) {
+		if ($data) {
 			$insert = $this->db->insert('products', $data);
 			return ($insert == true) ? true : false;
 		}
@@ -38,7 +45,7 @@ class Model_products extends CI_Model
 
 	public function update($data, $id)
 	{
-		if($data && $id) {
+		if ($data && $id) {
 			$this->db->where('id', $id);
 			$update = $this->db->update('products', $data);
 			return ($update == true) ? true : false;
@@ -47,7 +54,7 @@ class Model_products extends CI_Model
 
 	public function remove($id)
 	{
-		if($id) {
+		if ($id) {
 			$this->db->where('id', $id);
 			$delete = $this->db->delete('products');
 			return ($delete == true) ? true : false;
@@ -60,5 +67,4 @@ class Model_products extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 	}
-
 }

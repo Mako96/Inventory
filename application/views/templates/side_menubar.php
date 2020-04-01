@@ -72,8 +72,8 @@
 
         <?php if (in_array('createStore', $user_permission) || in_array('updateStore', $user_permission) || in_array('viewStore', $user_permission) || in_array('deleteStore', $user_permission)) : ?>
           <li id="storeNav">
-            <a href="<?php echo base_url('stores/') ?>">
-              <i class="fa fa-files-o"></i> <span>Stores</span>
+            <a href="<?php echo base_url('locations/') ?>">
+              <i class="fa fa-files-o"></i> <span>Locations</span>
             </a>
           </li>
         <?php endif; ?>
@@ -127,18 +127,24 @@
           </li>
         <?php endif; ?>
 
-        <?php if (in_array('viewReports', $user_permission)) : ?>
+        <!-- <? //php if (in_array('viewReports', $user_permission)) : 
+                ?>
           <li id="reportNav">
-            <a href="<?php echo base_url('reports/') ?>">
+            <a href="<? //php echo base_url('reports/') 
+                        ?>">
               <i class="glyphicon glyphicon-stats"></i> <span>Reports</span>
             </a>
           </li>
-        <?php endif; ?>
+        <? //php endif; 
+          ?> -->
 
 
-        <?php if (in_array('updateCompany', $user_permission)) : ?>
-          <li id="companyNav"><a href="<?php echo base_url('company/') ?>"><i class="fa fa-files-o"></i> <span>Company</span></a></li>
-        <?php endif; ?>
+        <? //php if (in_array('updateCompany', $user_permission)) : 
+          ?>
+        <!-- <li id="companyNav"><a href="<? //php echo base_url('company/') 
+                                            ?>"><i class="fa fa-files-o"></i> <span>Company</span></a></li> -->
+        <? //php endif; 
+          ?>
 
 
 

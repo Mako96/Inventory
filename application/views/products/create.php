@@ -1,5 +1,3 @@
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -22,12 +20,12 @@
 
         <div id="messages"></div>
 
-        <?php if($this->session->flashdata('success')): ?>
+        <?php if ($this->session->flashdata('success')) : ?>
           <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <?php echo $this->session->flashdata('success'); ?>
           </div>
-        <?php elseif($this->session->flashdata('error')): ?>
+        <?php elseif ($this->session->flashdata('error')) : ?>
           <div class="alert alert-error alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <?php echo $this->session->flashdata('error'); ?>
@@ -41,103 +39,104 @@
           </div>
           <!-- /.box-header -->
           <form role="form" action="<?php base_url('users/create') ?>" method="post" enctype="multipart/form-data">
-              <div class="box-body">
+            <div class="box-body">
 
-                <?php echo validation_errors(); ?>
+              <?php echo validation_errors(); ?>
 
-                <div class="form-group">
+              <div class="form-group">
 
-                  <label for="product_image">Image</label>
-                  <div class="kv-avatar">
-                      <div class="file-loading">
-                          <input id="product_image" name="product_image" type="file">
-                      </div>
+                <label for="product_image">Image</label>
+                <div class="kv-avatar">
+                  <div class="file-loading">
+                    <input id="product_image" name="product_image" type="file">
                   </div>
                 </div>
+              </div>
 
-                <div class="form-group">
-                  <label for="product_name">Product name</label>
-                  <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" autocomplete="off"/>
-                </div>
+              <div class="form-group">
+                <label for="product_name">Product name</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" autocomplete="off" />
+              </div>
 
-                <div class="form-group">
-                  <label for="sku">SKU</label>
-                  <input type="text" class="form-control" id="sku" name="sku" placeholder="Enter sku" autocomplete="off" />
-                </div>
+              <div class="form-group">
+                <label for="sku">Barcode</label>
+                <input type="number" class="form-control" id="sku" name="sku" placeholder="Enter Barcode number" autocomplete="off" />
+              </div>
 
-                <div class="form-group">
+              <!-- <div class="form-group">
                   <label for="price">Price</label>
                   <input type="text" class="form-control" id="price" name="price" placeholder="Enter price" autocomplete="off" />
-                </div>
+                </div> -->
 
-                <div class="form-group">
-                  <label for="qty">Qty</label>
-                  <input type="text" class="form-control" id="qty" name="qty" placeholder="Enter Qty" autocomplete="off" />
-                </div>
+              <!-- <div class="form-group">
+                <label for="qty_factory">Qty_Factory</label>
+                <input type="text" class="form-control" id="qty_factory" name="qty_factory" placeholder="Enter Qty_factory" autocomplete="off" />
+              </div> -->
 
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
+              <div class="form-group">
+                <label for="qty_warehouse">Warehouse Quantity</label>
+                <input type="number" class="form-control" id="qty_warehouse" name="qty_warehouse" placeholder="Enter Warehouse Quantity" autocomplete="off" />
+              </div>
+
+              <div class="form-group">
+                <label for="qty_store">Store Quantity</label>
+                <input type="number" class="form-control" id="qty_store" name="qty_store" placeholder="Enter Store Quantity" autocomplete="off" />
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
                   description" autocomplete="off">
                   </textarea>
-                </div>
+              </div>
 
-                <?php if($attributes): ?>
-                  <?php foreach ($attributes as $k => $v): ?>
-                    <div class="form-group">
-                      <label for="groups"><?php echo $v['attribute_data']['name'] ?></label>
-                      <select class="form-control select_group" id="attributes_value_id" name="attributes_value_id[]" multiple="multiple">
-                        <?php foreach ($v['attribute_value'] as $k2 => $v2): ?>
-                          <option value="<?php echo $v2['id'] ?>"><?php echo $v2['value'] ?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>    
+              <?php if ($attributes) : ?>
+                <?php foreach ($attributes as $k => $v) : ?>
+                  <div class="form-group">
+                    <label for="groups"><?php echo $v['attribute_data']['name'] ?></label>
+                    <select class="form-control select_group" id="attributes_value_id" name="attributes_value_id[]" multiple="multiple">
+                      <?php foreach ($v['attribute_value'] as $k2 => $v2) : ?>
+                        <option value="<?php echo $v2['id'] ?>"><?php echo $v2['value'] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
+                <?php endforeach ?>
+              <?php endif; ?>
+
+              <div class="form-group">
+                <label for="brands">Brands</label>
+                <select class="form-control select_group" id="brands" name="brands[]" multiple="multiple">
+                  <?php foreach ($brands as $k => $v) : ?>
+                    <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
                   <?php endforeach ?>
-                <?php endif; ?>
-
-                <div class="form-group">
-                  <label for="brands">Brands</label>
-                  <select class="form-control select_group" id="brands" name="brands[]" multiple="multiple">
-                    <?php foreach ($brands as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="category">Category</label>
-                  <select class="form-control select_group" id="category" name="category[]" multiple="multiple">
-                    <?php foreach ($category as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="store">Store</label>
-                  <select class="form-control select_group" id="store" name="store">
-                    <?php foreach ($stores as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="store">Availability</label>
-                  <select class="form-control" id="availability" name="availability">
-                    <option value="1">Yes</option>
-                    <option value="2">No</option>
-                  </select>
-                </div>
-
+                </select>
               </div>
-              <!-- /.box-body -->
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="<?php echo base_url('products/') ?>" class="btn btn-warning">Back</a>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control select_group" id="category" name="category[]" multiple="multiple">
+                  <?php foreach ($category as $k => $v) : ?>
+                    <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
+                  <?php endforeach ?>
+                </select>
               </div>
-            </form>
+
+              <div class="form-group">
+                <label for="store">Availability</label>
+                <select class="form-control" id="availability" name="availability">
+                  <option value="1">Yes</option>
+                  <option value="2">No</option>
+                </select>
+              </div>
+
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Add Product</button>
+              <a href="<?php echo base_url('products/') ?>" class="btn btn-warning">Back</a>
+            </div>
+          </form>
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
@@ -145,7 +144,7 @@
       <!-- col-md-12 -->
     </div>
     <!-- /.row -->
-    
+
 
   </section>
   <!-- /.content -->
@@ -159,26 +158,28 @@
 
     $("#mainProductNav").addClass('active');
     $("#addProductNav").addClass('active');
-    
-    var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
-        'onclick="alert(\'Call your custom code here.\')">' +
-        '<i class="glyphicon glyphicon-tag"></i>' +
-        '</button>'; 
+
+    var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+      'onclick="alert(\'Call your custom code here.\')">' +
+      '<i class="glyphicon glyphicon-tag"></i>' +
+      '</button>';
     $("#product_image").fileinput({
-        overwriteInitial: true,
-        maxFileSize: 1500,
-        showClose: false,
-        showCaption: false,
-        browseLabel: '',
-        removeLabel: '',
-        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
-        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-        removeTitle: 'Cancel or reset changes',
-        elErrorContainer: '#kv-avatar-errors-1',
-        msgErrorClass: 'alert alert-block alert-danger',
-        // defaultPreviewContent: '<img src="/uploads/default_avatar_male.jpg" alt="Your Avatar">',
-        layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
-        allowedFileExtensions: ["jpg", "png", "gif"]
+      overwriteInitial: true,
+      maxFileSize: 1500,
+      showClose: false,
+      showCaption: false,
+      browseLabel: '',
+      removeLabel: '',
+      browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+      removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+      removeTitle: 'Cancel or reset changes',
+      elErrorContainer: '#kv-avatar-errors-1',
+      msgErrorClass: 'alert alert-block alert-danger',
+      // defaultPreviewContent: '<img src="/uploads/default_avatar_male.jpg" alt="Your Avatar">',
+      layoutTemplates: {
+        main2: '{preview} ' + btnCust + ' {remove} {browse}'
+      },
+      allowedFileExtensions: ["jpg", "png", "gif"]
     });
 
   });

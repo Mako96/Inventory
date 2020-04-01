@@ -3795,7 +3795,7 @@ var wysihtml5 = {
     return api;
 }, this);;/**
  * Selection save and restore module for Rangy.
- * Saves and restores user selections using marker invisible elements in the DOM.
+ * Saves and relocations user selections using marker invisible elements in the DOM.
  *
  * Part of Rangy, a cross-browser JavaScript range and selection library
  * http://code.google.com/p/rangy/
@@ -3993,7 +3993,7 @@ var wysihtml5 = {
             return ranges;
         }
 
-        function restoreSelection(savedSelection, preserveDirection) {
+        function relocationselection(savedSelection, preserveDirection) {
             if (!savedSelection.restored) {
                 var rangeInfos = savedSelection.rangeInfos;
                 var sel = api.getSelection(savedSelection.win);
@@ -4036,7 +4036,7 @@ var wysihtml5 = {
             saveRanges: saveRanges,
             restoreRanges: restoreRanges,
             saveSelection: saveSelection,
-            restoreSelection: restoreSelection,
+            relocationselection: relocationselection,
             removeMarkerElement: removeMarkerElement,
             removeMarkers: removeMarkers
         });
@@ -9048,7 +9048,7 @@ wysihtml5.quirks.ensureProperClearing = (function() {
     },
 
     // TODO: Figure out a method from following 2 that would work universally
-    executeAndRestoreRangy: function(method, restoreScrollPosition) {
+    executeAndRestoreRangy: function(method, relocationscrollPosition) {
       var win = this.doc.defaultView || this.doc.parentWindow,
           sel = rangy.saveSelection(win);
 
@@ -9061,14 +9061,14 @@ wysihtml5.quirks.ensureProperClearing = (function() {
           setTimeout(function() { throw e; }, 0);
         }
       }
-      rangy.restoreSelection(sel);
+      rangy.relocationselection(sel);
     },
 
     // TODO: has problems in chrome 12. investigate block level and uneditable area inbetween
-    executeAndRestore: function(method, restoreScrollPosition) {
+    executeAndRestore: function(method, relocationscrollPosition) {
       var body                  = this.doc.body,
-          oldScrollTop          = restoreScrollPosition && body.scrollTop,
-          oldScrollLeft         = restoreScrollPosition && body.scrollLeft,
+          oldScrollTop          = relocationscrollPosition && body.scrollTop,
+          oldScrollLeft         = relocationscrollPosition && body.scrollLeft,
           className             = "_wysihtml5-temp-placeholder",
           placeholderHtml       = '<span class="' + className + '">' + wysihtml5.INVISIBLE_SPACE + '</span>',
           range                 = this.getRange(true),
@@ -9134,7 +9134,7 @@ wysihtml5.quirks.ensureProperClearing = (function() {
         this.contain.focus();
       }
 
-      if (restoreScrollPosition) {
+      if (relocationscrollPosition) {
         body.scrollTop  = oldScrollTop;
         body.scrollLeft = oldScrollLeft;
       }
@@ -10947,7 +10947,7 @@ wysihtml5.commands.formatCode = {
   }
 
   wysihtml5.commands.formatInline = {
-    exec: function(composer, command, tagName, className, classRegExp, cssStyle, styleRegExp, dontRestoreSelect, noCleanup) {
+    exec: function(composer, command, tagName, className, classRegExp, cssStyle, styleRegExp, dontRelocationselect, noCleanup) {
       var range = composer.selection.createRange(),
           ownRanges = composer.selection.getOwnRanges();
 
@@ -10958,7 +10958,7 @@ wysihtml5.commands.formatCode = {
 
       _getApplier(tagName, className, classRegExp, cssStyle, styleRegExp, composer.element).toggleRange(ownRanges);
 
-      if (!dontRestoreSelect) {
+      if (!dontRelocationselect) {
         range.setStart(ownRanges[0].startContainer,  ownRanges[0].startOffset);
         range.setEnd(
           ownRanges[ownRanges.length - 1].endContainer,

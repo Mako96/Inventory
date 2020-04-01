@@ -10251,7 +10251,7 @@ $.extend( $.effects, {
 		}
 	},
 
-	// Restores a set of previously saved properties from a data storage
+	// Relocations a set of previously saved properties from a data storage
 	restore: function( element, set ) {
 		var val, i;
 		for ( i = 0; i < set.length; i++ ) {
