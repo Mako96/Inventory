@@ -79,11 +79,11 @@ class Model_orders extends CI_Model
 	{
 		$user_id = $this->session->userdata('id');
 		if ($this->input->post('order_type') == 1 || $this->input->post('order_type') == 2) {
-			$order_no = 'AKB-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
+			$order_no = 'AKB-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 10));
 		} else if ($this->input->post('order_type') == 3) {
-			$order_no = 'AKB_FA-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
+			$order_no = 'AKB_FA-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 10));
 		} else if ($this->input->post('order_type') == 4) {
-			$order_no = 'AKB_CO-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
+			$order_no = 'AKB_CO-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 10));
 		}
 
 		$data = array(
