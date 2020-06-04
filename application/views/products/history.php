@@ -32,7 +32,8 @@
                   <th>Date/Time</th>
                   <th>Order Type</th>
                   <th>Order Number</th>
-                  <th>Qty</th>
+                  <th>Qty Warehouse</th>
+                  <th>Qty Shop</th>
                   <th>Order Placed by</th>
                 </tr>
               </thead>

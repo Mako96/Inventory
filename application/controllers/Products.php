@@ -98,19 +98,44 @@ class Products extends Admin_Controller
 
             if ($value['order_type'] == 1) {
                 $order_type = '<span class="label bg-aqua">Shop</span>';
+                $qty_str = $value['balance_str'] . '&emsp;<span class="label bg-red">- ' . $value['qty'] . '</span>';
+
+                if ($value['balance_whouse'] == NULL)
+                    $qty_whouse = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_whouse = $value['balance_whouse'];
             } else if ($value['order_type'] == 2) {
                 $order_type = '<span class="label label-warning">Warehouse</span>';
+
+                $qty_str = $value['balance_str'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                $qty_whouse = $value['balance_whouse']  . '&emsp;<span class="label bg-red">- ' . $value['qty'] . '</span>';
             } else if ($value['order_type'] == 3) {
                 $order_type = '<span class="label bg-green">Factory</span>';
+
+                $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                if ($value['balance_str'] == NULL)
+                    $qty_str = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_str = $value['balance_str'];
             } else if ($value['order_type'] == 4) {
                 $order_type = '<span class="label bg-red">Container</span>';
+                $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                if ($value['balance_str'] == NULL)
+                    $qty_str = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_str = $value['balance_str'];
             }
             $name = $value['product_name'];
+
             $result['data'][$key] = array(
                 $value['date_time'],
                 $order_type,
                 $value['order_no'],
-                $value['qty'],
+                $qty_whouse,
+                $qty_str,
                 $value['firstname']
             );
         }
@@ -132,12 +157,35 @@ class Products extends Admin_Controller
 
             if ($value['order_type'] == 1) {
                 $order_type = '<span class="label bg-aqua">Shop</span>';
+                $qty_str = $value['balance_str'] . '&emsp;<span class="label bg-red">- ' . $value['qty'] . '</span>';
+
+                if ($value['balance_whouse'] == NULL)
+                    $qty_whouse = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_whouse = $value['balance_whouse'];
             } else if ($value['order_type'] == 2) {
                 $order_type = '<span class="label label-warning">Warehouse</span>';
+
+                $qty_str = $value['balance_str'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                $qty_whouse = $value['balance_whouse']  . '&emsp;<span class="label bg-red">- ' . $value['qty'] . '</span>';
             } else if ($value['order_type'] == 3) {
                 $order_type = '<span class="label bg-green">Factory</span>';
+
+                $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                if ($value['balance_str'] == NULL)
+                    $qty_str = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_str = $value['balance_str'];
             } else if ($value['order_type'] == 4) {
                 $order_type = '<span class="label bg-red">Container</span>';
+                $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
+
+                if ($value['balance_str'] == NULL)
+                    $qty_str = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                else
+                    $qty_str = $value['balance_str'];
             }
 
             $date = date('d-m-Y', $value['date_time']);
@@ -148,7 +196,8 @@ class Products extends Admin_Controller
                 $date_time,
                 $order_type,
                 $value['order_no'],
-                $value['qty'],
+                $qty_whouse,
+                $qty_str,
                 $value['firstname']
             );
         }

@@ -152,12 +152,22 @@ class Model_orders extends CI_Model
 			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('x=' . $x) . PHP_EOL, FILE_APPEND);
 
 			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('order type=' . $this->input->post('order_type')) . PHP_EOL, FILE_APPEND);
-
+			if ($this->input->post('order_type') == 1) {
+				$balance_whouse = $product_data['qty_warehouse'];
+				$balance_str = (int) $product_data['qty_store'] - (int) $this->input->post('qty')[$x];
+			} else if ($this->input->post('order_type') == 2) {
+			} else if ($this->input->post('order_type') == 3) {
+			} else if ($this->input->post('order_type') == 4) {
+				$balance_whouse = (int) $product_data['qty_warehouse'] + (int) $this->input->post('qty')[$x];
+				$balance_str = $product_data['qty_store'];
+			}
 			$items = array(
 				'order_id' => $order_id,
 				'product_id' => $this->input->post('product')[$x],
 				'qty' => $this->input->post('qty')[$x],
 				'requested_qty' => $this->input->post('qty')[$x],
+				'balance_whouse' => $balance_whouse,
+				'balance_str' => $balance_str,
 				// 'rate' => $this->input->post('rate_value')[$x],
 				// 'amount' => $this->input->post('amount_value')[$x],
 			);
@@ -258,7 +268,7 @@ class Model_orders extends CI_Model
 					$productQuantity = $product_data['qty_warehouse'];
 					$remainingQuantity = $productQuantity - $dispatched_qty;
 					$product_data = $this->model_products->getProductData($product_id); //qty,
-					$update_product_data = array('qty_warehouse' => $remainingQuantity);
+					$update_product_data = array('qty_warehouse' => $remainingQuantity); //balance
 
 					//----------------------------
 					// update the product qty
@@ -266,17 +276,20 @@ class Model_orders extends CI_Model
 
 
 					$productId = $this->input->post('product')[$index];
-
+					$balance_whouse = (int) $product_data['qty_warehouse'] - (int) $dispatched_qty;
+					$balance_str = $product_data['qty_store'];
 					$items = array(
 						'order_id' => $id,
 						'product_id' => $this->input->post('product')[$index],
 						'qty' => $dispatched_qty,
+						'balance_whouse' => $balance_whouse,
+						'balance_str' => $balance_str,
 						// 'rate' => $this->input->post('rate_value')[$x],
 						// 'amount' => $this->input->post('amount_value')[$x],
 					);
 
-					$query = "UPDATE orders_item SET qty=? WHERE product_id=? AND order_id = ?";
-					$query = $this->db->query($query, array($dispatched_qty, $productId, $id));
+					$query = "UPDATE orders_item SET qty=? , balance_whouse = ? , balance_str = ? WHERE product_id=? AND order_id = ?";
+					$query = $this->db->query($query, array($dispatched_qty, $balance_whouse, $balance_str, $productId, $id));
 
 					$index++;
 				}
@@ -315,14 +328,22 @@ class Model_orders extends CI_Model
 						$newQuantity = $productQuantity + $dispatched_qty;
 						$product_data = $this->model_products->getProductData($product_id); //qty,
 						$update_product_data = array('qty_store' => $newQuantity);
+
+						$balance_str = $newQuantity;
+						$sql = "UPDATE orders_item set balance_str = ? where id = ?";
+						$this->db->query($sql, array($balance_str, $v['id']));
 					} else if ($result2[0]['order_type'] == 3) {
 						$productQuantity = $product_data['qty_warehouse'];
 						$newQuantity = $productQuantity + $dispatched_qty;
 						$product_data = $this->model_products->getProductData($product_id); //qty,
 						$update_product_data = array('qty_warehouse' => $newQuantity);
+
+						$balance_whouse = $newQuantity;
+						$sql = "UPDATE orders_item set balance_whouse = ? , balance_str = ?  where id = ?";
+						$this->db->query($sql, array($balance_whouse, $product_data['qty_store'], $v['id']));
 					}
 
-					// update the product qty
+					// update the product qty and balance quantity in order_items
 					//----------------------------
 					$this->model_products->update($update_product_data, $product_id);
 					$index++;

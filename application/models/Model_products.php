@@ -30,7 +30,7 @@ class Model_products extends CI_Model
 
 	public function getProductHistory($id = null)
 	{
-		$sql = "SELECT orders.date_time,orders.order_type, products.name as product_name, orders.order_no, orders_item.qty, users.firstname FROM orders_item inner join orders on orders_item.order_id = orders.id inner join products on orders_item.product_id = products.id inner join users on orders.user_id = users.id where products.id = ? ORDER BY orders.id DESC";
+		$sql = "SELECT orders.date_time,orders.order_type, products.name as product_name, orders.order_no, products.qty_warehouse as qty_whouse,products.qty_store as qty_str, orders_item.qty, orders_item.balance_whouse, orders_item.balance_str, users.firstname FROM orders_item inner join orders on orders_item.order_id = orders.id inner join products on orders_item.product_id = products.id inner join users on orders.user_id = users.id where products.id = ? ORDER BY orders.id DESC";
 		$query = $this->db->query($sql, array($id));
 		return $query->result_array();
 	}
