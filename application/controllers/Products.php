@@ -160,7 +160,7 @@ class Products extends Admin_Controller
                 $qty_str = $value['balance_str'] . '&emsp;<span class="label bg-red">- ' . $value['qty'] . '</span>';
 
                 if ($value['balance_whouse'] == NULL) {
-                    $qty_whouse = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                    $qty_whouse = '<span class="label bg-gray">No record!</span>&emsp;(' . $value['qty'] . ')';
                 } else {
                     $qty_whouse = $value['balance_whouse'];
                 }
@@ -176,7 +176,7 @@ class Products extends Admin_Controller
                 $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
 
                 if ($value['balance_str'] == NULL) {
-                    $qty_str = '<span class="label bg-warning">No record!</span>&emsp;(' . $value['qty'] . ')';
+                    $qty_str = '<span class="label bg-gray">No record!</span>&emsp;(' . $value['qty'] . ')';
                 } else {
                     $qty_str = $value['balance_str'];
                 }
@@ -185,7 +185,7 @@ class Products extends Admin_Controller
                 $qty_whouse = $value['balance_whouse'] . '&emsp;<span class="label bg-green">+ ' . $value['qty'] . '</span>';
 
                 if ($value['balance_str'] == NULL) {
-                    $qty_str = '<span class="label bg-warning">No record!</span>';
+                    $qty_str = '<span class="label bg-gray">No record!</span>';
                 } else {
                     $qty_str = $value['balance_str'];
                 }
