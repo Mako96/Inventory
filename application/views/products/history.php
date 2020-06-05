@@ -29,7 +29,7 @@
             <table id="manageTable" class="ui celled table">
               <thead>
                 <tr>
-                  <th>Date/Time</th>
+                  <th>Completed Date/Time</th>
                   <th>Order Type</th>
                   <th>Order Number</th>
                   <th>Qty Warehouse</th>

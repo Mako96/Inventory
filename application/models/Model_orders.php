@@ -155,11 +155,11 @@ class Model_orders extends CI_Model
 				$balance_whouse = $product_data['qty_warehouse'];
 				$balance_str = (int) $product_data['qty_store'] - (int) $this->input->post('qty')[$x];
 			} else if ($this->input->post('order_type') == 2) {
-				$balance_whouse = $product_data['qty_warehouse'];
-				$balance_str = (int) $product_data['qty_store'];
+				$balance_whouse = '';
+				$balance_str = '';
 			} else if ($this->input->post('order_type') == 3) {
-				$balance_whouse = $product_data['qty_warehouse'];
-				$balance_str = (int) $product_data['qty_store'];
+				$balance_whouse = '';
+				$balance_str = '';
 			} else if ($this->input->post('order_type') == 4) {
 				$balance_whouse = (int) $product_data['qty_warehouse'] + (int) $this->input->post('qty')[$x];
 				$balance_str = $product_data['qty_store'];
@@ -171,6 +171,7 @@ class Model_orders extends CI_Model
 				'requested_qty' => $this->input->post('qty')[$x],
 				'balance_whouse' => $balance_whouse,
 				'balance_str' => $balance_str,
+				'final_date_time' => strtotime(date('Y-m-d h:i:s a')),
 				// 'rate' => $this->input->post('rate_value')[$x],
 				// 'amount' => $this->input->post('amount_value')[$x],
 			);
@@ -331,6 +332,10 @@ class Model_orders extends CI_Model
 						$balance_str = $newQuantity;
 						$sql = "UPDATE orders_item set balance_str = ? where id = ?";
 						$this->db->query($sql, array($balance_str, $v['id']));
+
+						$final_time = strtotime(date('Y-m-d h:i:s a'));
+						$sql = "UPDATE orders_item set final_date_time = ? where id = ?";
+						$this->db->query($sql, array($final_time, $v['id']));
 					} else if ($result2[0]['order_type'] == 3) {
 						$productQuantity = $product_data['qty_warehouse'];
 						$newQuantity = $productQuantity + $dispatched_qty;
@@ -340,6 +345,10 @@ class Model_orders extends CI_Model
 						$balance_whouse = $newQuantity;
 						$sql = "UPDATE orders_item set balance_whouse = ? , balance_str = ?  where id = ?";
 						$this->db->query($sql, array($balance_whouse, $product_data['qty_store'], $v['id']));
+
+						$final_time = strtotime(date('Y-m-d h:i:s a'));
+						$sql = "UPDATE orders_item set final_date_time = ? where id = ?";
+						$this->db->query($sql, array($final_time, $v['id']));
 					}
 
 					// update the product qty and balance quantity in order_items
