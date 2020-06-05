@@ -188,12 +188,8 @@ class Model_orders extends CI_Model
 			} else if ($this->input->post('order_type') == 3) {
 			} else if ($this->input->post('order_type') == 4) {
 				// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode($product_data) . PHP_EOL, FILE_APPEND);
-				$newQuantity =  $product_data['qty_warehouse'] + $this->input->post('qty')[$x];
+				$newQuantity = (int) $product_data['qty_warehouse'] + (int) $this->input->post('qty')[$x];
 				$update_product = array('qty_warehouse' => $newQuantity);
-
-				// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('existing qty='. $product_data['qty_store'] . '     ,     new qty=' . $this->input->post('qty')[$x]) . PHP_EOL, FILE_APPEND);
-				// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode($product_data) . PHP_EOL, FILE_APPEND);
-
 				$this->model_products->update($update_product, $this->input->post('product')[$x]);
 			}
 		}
