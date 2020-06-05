@@ -150,13 +150,16 @@ class Model_orders extends CI_Model
 		// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('count_product=' . $count_product) . PHP_EOL, FILE_APPEND);
 		for ($x = 0; $x < $count_product; $x++) {
 			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('x=' . $x) . PHP_EOL, FILE_APPEND);
-
-			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode('order type=' . $this->input->post('order_type')) . PHP_EOL, FILE_APPEND);
+			$product_data = $this->model_products->getProductData($this->input->post('product')[$x]);
 			if ($this->input->post('order_type') == 1) {
 				$balance_whouse = $product_data['qty_warehouse'];
 				$balance_str = (int) $product_data['qty_store'] - (int) $this->input->post('qty')[$x];
 			} else if ($this->input->post('order_type') == 2) {
+				$balance_whouse = $product_data['qty_warehouse'];
+				$balance_str = (int) $product_data['qty_store'];
 			} else if ($this->input->post('order_type') == 3) {
+				$balance_whouse = $product_data['qty_warehouse'];
+				$balance_str = (int) $product_data['qty_store'];
 			} else if ($this->input->post('order_type') == 4) {
 				$balance_whouse = (int) $product_data['qty_warehouse'] + (int) $this->input->post('qty')[$x];
 				$balance_str = $product_data['qty_store'];
@@ -176,7 +179,7 @@ class Model_orders extends CI_Model
 
 			// now decrease the stock from the product
 
-			$product_data = $this->model_products->getProductData($this->input->post('product')[$x]);
+
 			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode("product Data below x=" . $x . ', p id=' . $this->input->post('product')[$x]) . PHP_EOL, FILE_APPEND);
 			// file_put_contents('/Users/murtazababrawala/Desktop/Projects/log_file.txt', json_encode($product_data) . PHP_EOL, FILE_APPEND);
 
